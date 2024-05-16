@@ -1,15 +1,15 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import Modal from 'react-modal';
-import './App.css'
-import PokemonsCard from './components/PokemonsCard'
+import './App.css';
+import PokemonsCard from './components/PokemonsCard';
 import PokemonInfo from './components/PokemonInfo';
-import { Pokemon} from './components/type.ts'
-import CircularProgress from '@mui/material/CircularProgress'
+import { Pokemon, PokemonSpecies } from './components/type.ts';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useDataFromEndPoint } from './hooks/useDataFromEndPoint.ts';
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedPokemonUrl, setSelectedPokemonUrl] = useState<string>('')
+  const [selectedPokemonUrl, setSelectedPokemonUrl] = useState<string>('');
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -19,41 +19,39 @@ function App() {
     setModalIsOpen(false);
   };
 
-
-  const data = useDataFromEndPoint("https://pokeapi.co/api/v2/pokemon-species");
-  console.log (data)
+  const data = useDataFromEndPoint<PokemonSpecies>(
+    'https://pokeapi.co/api/v2/pokemon-species',
+  );
+  console.log('pok', data);
   // const data2 = useDataFromEndPoint("https://pokeapi.co/api/v2/pokemon-species/1/");
   // console.log (data2, "data2" )
-  const pokemonList = data?.results
-  console.log (pokemonList)
+  const pokemonList = data?.results;
+  console.log(pokemonList);
 
   return (
     <>
       <div className="allCards">
-        {pokemonList?.length < 1 ? (
+        {!pokemonList?.length ? (
           <CircularProgress />
         ) : (
-          pokemonList?.map((el: Pokemon, index: number) => <PokemonsCard
-            key={index}
-            name={el.name}
-            onClick={() => {
-              setSelectedPokemonUrl(el.url);
-              openModal();
-            }}
-          />
+          pokemonList?.map((el: Pokemon, index: number) => (
+            <PokemonsCard
+              key={index}
+              name={el.name}
+              onClick={() => {
+                setSelectedPokemonUrl(el.url);
+                openModal();
+              }}
+            />
           ))
-        }
+        )}
       </div>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-        {<PokemonInfo
-          url={selectedPokemonUrl}
-        />
-        }
+        {<PokemonInfo url={selectedPokemonUrl} />}
         <button onClick={closeModal}>Close</button>
       </Modal>
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;

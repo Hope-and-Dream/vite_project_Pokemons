@@ -1,21 +1,22 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 // import { SelectedPokemonInfo, PokemonSpecies } from '../components/type.ts'
 
+export const useDataFromEndPoint = <T>(endpoint: string) => {
+  const [response, setResponse] = useState<T | null>(null);
 
-export const useDataFromEndPoint = (endpoint: string) => {
-    const [response, setResponse] = useState([])
-
-    const getDataFromApi = async () => {
-        const { data } = await axios.get(endpoint);
-        setResponse(data)
+  const getDataFromApi = async () => {
+    try {
+      const { data } = await axios.get<T>(endpoint);
+      setResponse(data);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    useEffect(() => {
-        getDataFromApi()
-    }, [])
+  useEffect(() => {
+    getDataFromApi();
+  }, []);
 
-    return response;
+  return response;
 };
- 
-
