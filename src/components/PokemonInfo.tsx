@@ -1,26 +1,30 @@
+import { useDataFromEndPoint } from "../hooks/useDataFromEndPoint";
+
 type Props = {
-    name:string;
-    base_happiness: number;
-    color: string;
-    habitat: string;
-    shape: string;
+    url: string;
 }
 
-const PokemonInfo = ( {name, base_happiness, color, habitat, shape }:Props) => {
+const PokemonInfo = ({ url }: Props) => {
+    console.log(url)
+    
+    const selectedPokemonInfo = useDataFromEndPoint(url)
+
+    console.log(selectedPokemonInfo)
+
     return (
-        
         <div className="cardInfo">
-          
-            <h2>{name}</h2>
+            {selectedPokemonInfo && (
+                <div>
+            <h2>{selectedPokemonInfo?.name}</h2>
             <ul>
-                <li>Base_happiness: {base_happiness}</li>
-                <li>Color: {color}</li>
-                <li>Habitat: {habitat}</li>
-                <li>Shape: {shape}</li>
+                <li>Base_happiness: {selectedPokemonInfo?.base_happiness}</li>
+                <li>Color: {selectedPokemonInfo?.color?.name}</li>
+                <li>Habitat: {selectedPokemonInfo?.habitat?.name}</li>
+                <li>Shape: {selectedPokemonInfo?.shape?.name}</li>
             </ul>
+            </div>
+            )}
         </div>
-            
-    )
-}
+        )}
 
 export default PokemonInfo
