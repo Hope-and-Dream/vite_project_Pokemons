@@ -34,7 +34,7 @@ function App() {
         {!pokemonList?.length ? (
           <CircularProgress />
         ) : (
-          pokemonList?.map((el: Pokemon, index: number) => (
+          pokemonList?.map((el: any, index: number) => (
             <PokemonsCard
               key={index}
               name={el.name}
