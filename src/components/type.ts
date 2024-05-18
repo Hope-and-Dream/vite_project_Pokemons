@@ -1,30 +1,22 @@
+export type BaseInfo = {
+  name: string,
+  url: string
+}
+
 export interface PokemonSpecies {
   count: number,
   next: string,
   previous: null,
-  results: [
-    name: string,
-    url: string
-  ]
-}
-
-export interface Pokemon {
-  name: string;
-  url: string;
+  results: BaseInfo[]
 }
 
 export interface SelectedPokemonInfo {
   base_happiness: number
   capture_rate: number
-  color: {
-    name: string
-    url: string
-  }
+  color: BaseInfo
+
   egg_groups: [
-    {
-      name: string
-      url: string
-    }
+    BaseInfo
   ]
   evolution_chain: {
     url: string
@@ -33,14 +25,8 @@ export interface SelectedPokemonInfo {
   flavor_text_entries: [
     {
       flavor_text: string
-      language: {
-        name: string
-        url: string
-      }
-      version: {
-        name: string
-        url: string
-      }
+      language: BaseInfo
+      version: BaseInfo
     }
   ]
   form_descriptions: []
@@ -49,25 +35,12 @@ export interface SelectedPokemonInfo {
   genera: [
     {
       genus: string
-      language: {
-        name: string
-        url: string
-      }
+      language: BaseInfo
     }
   ]
-  generation: {
-    name: string
-    url: string
-  }
-  growth_rate: {
-    name: string
-    url: string
-  }
-
-  habitat: {
-    name: string
-    url: string
-  }
+  generation: BaseInfo
+  growth_rate: BaseInfo
+  habitat: BaseInfo
   has_gender_differences: boolean
   hatch_counter: number
   id: number
@@ -76,18 +49,12 @@ export interface SelectedPokemonInfo {
   is_mythical: boolean
   name: string
   names: [
-    language: {
-      name: string
-      url: string
-    }
+    BaseInfo
   ]
   order: number
   pal_park_encounters: [
     {
-      area: {
-        name: string
-        url: string
-      }
+      area: BaseInfo
       base_score: number
       rate: number
     }
@@ -95,23 +62,14 @@ export interface SelectedPokemonInfo {
   pokedex_numbers: [
     {
       entry_number: number
-      pokedex: {
-        name: string
-        url: string
-      }
+      pokedex: BaseInfo
     }
   ]
-  shape: {
-    name: string
-    url: string
-  }
+  shape: BaseInfo
   varieties: [
     {
       is_default: boolean
-      pokemon: {
-        name: string
-        url: string
-      }
+      pokemon: BaseInfo
     }
   ]
 }

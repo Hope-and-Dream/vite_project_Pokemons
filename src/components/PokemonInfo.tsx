@@ -1,15 +1,12 @@
 import { useDataFromEndPoint } from "../hooks/useDataFromEndPoint";
+import {SelectedPokemonInfo} from './type.ts'
 
 type Props = {
     url: string;
 }
 
-const PokemonInfo = ({ url }: Props) => {
-    console.log(url)
-    
-    const selectedPokemonInfo = useDataFromEndPoint(url)
-
-    console.log(selectedPokemonInfo)
+export const PokemonInfo = ({ url }: Props) => {
+    const selectedPokemonInfo = useDataFromEndPoint<SelectedPokemonInfo>(url)
 
     return (
         <div className="cardInfo">
@@ -26,5 +23,3 @@ const PokemonInfo = ({ url }: Props) => {
             )}
         </div>
         )}
-
-export default PokemonInfo
