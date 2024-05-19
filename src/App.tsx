@@ -19,16 +19,16 @@ function App() {
     setModalIsOpen(false);
   };
 
-
-  const {results} = useDataFromEndPoint<PokemonSpecies>("https://pokeapi.co/api/v2/pokemon-species");
+const pokemonList = useDataFromEndPoint<PokemonSpecies>("https://pokeapi.co/api/v2/pokemon-species");
+  const pokemonInfo = pokemonList?.results
 
   return (
     <>
       <div className="allCards">
-        {results?.length < 1 ? (
+        {!pokemonInfo ? (
           <CircularProgress />
         ) : (
-          results?.map((el: BaseInfo, index: number) => <PokemonsCard
+          pokemonInfo?.map((el: BaseInfo, index: number) => <PokemonsCard
             key={index}
             name={el.name}
             onClick={() => {
